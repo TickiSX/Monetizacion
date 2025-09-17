@@ -4,11 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Llaveros UCQ | Inicio</title>
+
+  <!-- Estilos propios -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Manifest para PWA -->
+  <!-- Manifest PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
+
+  <!-- iOS (opcional pero recomendado) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="img/icon-192.png">
 </head>
 <body>
   <header>Llaveros UCQ</header>
@@ -37,15 +44,40 @@
     © 2025 Llaveros UCQ | Todos los derechos reservados
   </footer>
 
+  <!-- Botón de instalación opcional -->
+  <button id="installBtn" style="position:fixed;right:12px;bottom:12px;display:none;">
+    Instalar app
+  </button>
+
+  <!-- Tu JS de la página (si lo usas) -->
   <script src="script.js"></script>
 
-  <!-- Registro del Service Worker -->
+  <!-- Registro del Service Worker + lógica de instalación -->
   <script>
+    // Registrar Service Worker (debe existir service-worker.js en la RAÍZ)
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js")
+      navigator.serviceWorker.register("./service-worker.js")
         .then(() => console.log("Service Worker registrado"))
-        .catch(err => console.log("Error al registrar SW:", err));
+        .catch(err => console.error("Error al registrar SW:", err));
     }
+
+    // Botón Instalar (A2HS)
+    let deferredPrompt;
+    const installBtn = document.getElementById("installBtn");
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = "block";
+    });
+
+    installBtn.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === "accepted") installBtn.textContent = "Instalada";
+      deferredPrompt = null;
+    });
   </script>
 </body>
 </html>
