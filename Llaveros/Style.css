@@ -2,7 +2,6 @@
    ESTILOS GENERALES DEL PROYECTO
    ============================= */
 
-/* Estilo general de todo el sitio */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11,27 +10,26 @@ body {
   line-height: 1.6;
 }
 
-/* Encabezado */
 header {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
   color: #fff;
   text-align: center;
-  padding: 20px;
-  font-size: 2rem;
+  padding: 30px 20px;
+  font-size: 3rem;
   font-weight: bold;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  letter-spacing: 2px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* Barra de navegación */
 nav {
   position: sticky;
   top: 0;
   background: #ffffffee;
   display: flex;
   justify-content: center;
-  gap: 20px;
-  padding: 12px 0;
+  gap: 25px;
+  padding: 18px 0;
+  font-size: 1.1rem;
   z-index: 1000;
   backdrop-filter: blur(6px);
 }
@@ -50,7 +48,6 @@ nav a:hover {
   color: #fff;
 }
 
-/* Main */
 main {
   padding: 30px;
   max-width: 1000px;
@@ -68,7 +65,6 @@ p {
   margin-bottom: 15px;
 }
 
-/* Footer */
 footer {
   background: #66a6ff;
   color: white;
@@ -79,7 +75,6 @@ footer {
 
 /* =============================
    CARRUSEL
-   PÁGINA: index.html
    ============================= */
 .carousel {
   position: relative;
@@ -110,19 +105,11 @@ footer {
 
 /* =============================
    ESTILOS PARA LA TIENDA
-   PÁGINA: tienda.html
    ============================= */
-
-/* Contenedor general de la tienda */
 .tienda-container {
   padding: 30px;
   max-width: 1200px;
   margin: 0 auto;
-}
-
-/* Subtítulos de categorías */
-.categoria {
-  margin-bottom: 40px;
 }
 
 .categoria h3 {
@@ -134,20 +121,18 @@ footer {
   padding-bottom: 5px;
 }
 
-/* Grid de tarjetas de productos */
 .tarjetas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-/* Tarjetas individuales */
 .card {
   background: #fff;
   border-radius: 15px;
   padding: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
   text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -156,7 +141,6 @@ footer {
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* Imagen de la tarjeta */
 .card img {
   width: 100%;
   max-height: 150px;
@@ -166,12 +150,10 @@ footer {
   transition: filter 0.3s;
 }
 
-/* Texto dentro de la tarjeta */
 .card p {
   margin: 5px 0;
 }
 
-/* Botones de agregar al carrito */
 .card button {
   background: #b30000;
   color: #fff;
@@ -188,13 +170,11 @@ footer {
   transform: scale(1.05);
 }
 
-/* Botón deshabilitado (agotado) */
 .card button:disabled {
   background: #888;
   cursor: not-allowed;
 }
 
-/* Enlace que envuelve la tarjeta */
 .card a {
   text-decoration: none;
   color: inherit;
@@ -203,7 +183,6 @@ footer {
 
 /* =============================
    ÍNDICE DE LLAVEROS
-   PÁGINA: indice.html
    ============================= */
 .progreso-texto {
   text-align: center;
@@ -231,7 +210,6 @@ footer {
   transition: width 0.5s;
 }
 
-/* Grid de llaveros */
 .grid-llaveros {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -242,7 +220,6 @@ footer {
   margin-right: auto;
 }
 
-/* Tarjetas de llaveros */
 .tarjeta-llavero {
   background: #fff;
   border-radius: 15px;
@@ -273,19 +250,17 @@ footer {
 }
 
 .estado {
+  display: inline-block;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 0.9rem;
-  display: inline-block;
   color: #fff;
 }
 
-/* Tarjetas conseguidas */
 .tarjeta-llavero.conseguido .estado {
   background: #4caf50;
 }
 
-/* Tarjetas faltantes */
 .tarjeta-llavero.faltante {
   background: #ccc;
 }
@@ -299,130 +274,15 @@ footer {
 }
 
 /* =============================
-   PERFIL DE MIEMBROS DEL EQUIPO
-   PÁGINA: conocenos.html y perfiles individuales
-   ============================= */
-.perfil {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin: 20px 0;
-}
-
-.perfil img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  margin-bottom: 15px;
-  object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.perfil h2 {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.perfil p {
-  max-width: 600px;
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-
-.redes {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin: 20px 0;
-}
-
-.redes img {
-  width: 60px;
-  height: 60px;
-  transition: transform 0.2s, filter 0.2s;
-  cursor: pointer;
-}
-
-.redes img:hover {
-  transform: scale(1.1);
-  filter: brightness(1.2);
-}
-
-.trabajos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.trabajos img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.trabajos img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-}
-
-/* =============================
-   CARRITO DE COMPRAS
-   PÁGINA: carrito.html
-   ============================= */
-#carrito-lista {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 15px;
-}
-
-#carrito-lista li {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 15px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-  margin-bottom: 10px;
-}
-
-#carrito-total {
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-main button {
-  background: #b30000;
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-main button:hover {
-  background: #800000;
-  transform: scale(1.05);
-}
-
-/* =============================
-   TARJETAS DE EQUIPO EN CONÓCENOS
-   PÁGINA: conocenos.html
+   CONÓCENOS - PERFIL DEL EQUIPO
    ============================= */
 .equipo {
-  display: grid;
-  grid-template-columns: 1fr; /* Una sola columna */
-  gap: 30px; /* Separación entre tarjetas */
+  display: flex;
+  flex-direction: column; /* 1 tarjeta por fila */
+  gap: 30px;              /* espacio entre tarjetas */
   padding: 30px;
-  max-width: 600px; /* Ajusta según prefieras el ancho máximo */
-  margin: 0 auto;
+  max-width: 800px;       /* ancho máximo de la página */
+  margin: 0 auto;         /* centra en la página */
 }
 
 .equipo .card {
@@ -440,50 +300,115 @@ main button:hover {
 }
 
 .equipo .card img {
-  width: 250px;  /* Tamaño grande */
-  height: 250px; /* Cuadrada */
-  border-radius: 20px; /* Puedes ajustar la curva */
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
   margin-bottom: 15px;
-  object-fit: cover; /* Mantiene la proporción y recorta si es necesario */
+  object-fit: cover;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .equipo .card h3 {
-  margin: 10px 0 5px 0;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #333;
+  margin: 10px 0 5px 0;
 }
 
 .equipo .card p {
   font-size: 1rem;
-  margin-bottom: 10px;
   color: #666;
+  margin-bottom: 15px;
 }
 
+/* Botón de ver perfil */
 .equipo .card .btn-perfil {
   display: inline-block;
-  padding: 10px 20px;
-  background-color: #66a6ff;
+  padding: 10px 25px;
+  background: linear-gradient(135deg, #66a6ff, #89f7fe);
   color: #fff;
-  text-decoration: none;
-  border-radius: 25px;
   font-weight: bold;
-  transition: background 0.3s, transform 0.2s;
+  text-decoration: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
 }
 
 .equipo .card .btn-perfil:hover {
-  background-color: #5588dd;
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #5588dd, #66b0ff);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 /* =============================
-   PRODUCTO DETALLE
-   PÁGINA: producto individual
+   CARLOS GONZALEZ - PERFIL Y REDES SOCIALES
    ============================= */
-.producto-info h2 {
-  border-left: none; /* quita la línea azul */
-  padding-left: 0;
-  text-align: center; /* opcional: centra el título */
+.perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 15px;
+}
+
+.perfil img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.redes.carlos-redes {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin: 20px 0;
+}
+
+.carlos-redes a img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.carlos-redes a img:hover {
+  transform: scale(1.2) rotate(-5deg);
+  filter: brightness(1.2);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+/* Trabajos centrados y con efecto hover */
+.trabajos {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.trabajos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.trabajos-grid img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.trabajos-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 
 /* =============================
@@ -497,18 +422,8 @@ main button:hover {
   .grid-llaveros {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .equipo {
     grid-template-columns: 1fr;
-  }
-  
-  .trabajos img {
-    width: 150px;
-    height: 150px;
-  }
-  
-  .perfil img {
-    width: 140px;
-    height: 140px;
   }
 }
