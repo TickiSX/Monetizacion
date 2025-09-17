@@ -25,117 +25,61 @@
 
   <main>
     <h2>Índice de Llaveros</h2>
-    <p>Visualiza los llaveros que tienes y los que te faltan.</p>
+    <p style="text-align:center;">Visualiza los llaveros que tienes y los que te faltan.</p>
 
-    <div class="indice-container">
-
-      <!-- Gatita -->
-      <div class="categoria">
-        <h3>Gatita</h3>
-        <div class="tarjetas">
-
-          <a href="productos/coleccion gatita sep 2025/gatita-gymrat.html" class="card">
-            <img src="img/gymrat.jpg" alt="Gatita Gymrat">
-            <p><strong>Gatita Gymrat</strong></p>
-          </a>
-
-          <a href="productos/coleccion gatita sep 2025/gatita-gamer.html" class="card">
-            <img src="img/gamer.jpg" alt="Gatita Gamer/Animación">
-            <p><strong>Gatita Gamer/Animación</strong></p>
-          </a>
-
-          <a href="productos/coleccion gatita sep 2025/gatita-kny.html" class="card">
-            <img src="img/kny.jpg" alt="Gatita KNY">
-            <p><strong>Gatita KNY</strong></p>
-          </a>
-
-          <a href="productos/coleccion gatita sep 2025/gatita-odonto.html" class="card">
-            <img src="img/odonto.jpg" alt="Gatita Odonto">
-            <p><strong>Gatita Odonto</strong></p>
-          </a>
-
-          <a href="productos/coleccion gatita sep 2025/gatita-dormida.html" class="card">
-            <img src="img/dormida.jpg" alt="Gatita Dormida">
-            <p><strong>Gatita Dormida</strong></p>
-          </a>
-
-          <a href="productos/coleccion gatita sep 2025/gatita-hello-kitty.html" class="card">
-            <img src="img/hello.jpg" alt="Gatita Hello Kitty">
-            <p><strong>Gatita Hello Kitty</strong></p>
-          </a>
-
-          <a href="productos/coleccion gatita sep 2025/gatita-cinnamoroll.html" class="card">
-            <img src="img/cinnamoroll.jpg" alt="Gatita Cinnamoroll">
-            <p><strong>Gatita Cinnamoroll</strong></p>
-          </a>
-
-          <a href="productos/coleccion gatita sep 2025/gatita-my-melody.html" class="card">
-            <img src="img/my-melody.jpg" alt="Gatita My Melody">
-            <p><strong>Gatita My Melody</strong></p>
-          </a>
-
-          <a href="productos/coleccion gatita sep 2025/gatita-kuromi.html" class="card">
-            <img src="img/kuromi.jpg" alt="Gatita Kuromi">
-            <p><strong>Gatita Kuromi</strong></p>
-          </a>
-
-          <a href="productos/coleccion gatita sep 2025/gatita-platano.html" class="card">
-            <img src="img/platano.jpg" alt="Gatita Plátano">
-            <p><strong>Gatita Plátano</strong></p>
-          </a>
-
-        </div>
-      </div>
-
-      <!-- Genéricos -->
-      <div class="categoria">
-        <h3>Genéricos</h3>
-        <div class="tarjetas">
-
-          <a href="productos/genericos sep 2025/muela.html" class="card">
-            <img src="img/muela.jpg" alt="Muela">
-            <p><strong>Muela</strong></p>
-          </a>
-
-          <a href="productos/genericos sep 2025/control-teclado-audifonos.html" class="card">
-            <img src="img/control.jpg" alt="Control - Teclado - Audífonos">
-            <p><strong>Control - Teclado - Audífonos</strong></p>
-          </a>
-
-          <a href="productos/genericos sep 2025/simi-guerrero.html" class="card">
-            <img src="img/simi.jpg" alt="Simi Guerrero">
-            <p><strong>Simi Guerrero</strong></p>
-          </a>
-
-          <a href="productos/genericos sep 2025/paleta-ping-pong.html" class="card">
-            <img src="img/paleta.jpg" alt="Paleta Ping Pong">
-            <p><strong>Paleta Ping Pong con Pelotita</strong></p>
-          </a>
-
-          <a href="productos/genericos sep 2025/coca-cola.html" class="card">
-            <img src="img/cocacola.jpg" alt="Coca-Cola">
-            <p><strong>Coca-Cola</strong></p>
-          </a>
-
-        </div>
-      </div>
-
-      <!-- Ediciones Limitadas -->
-      <div class="categoria">
-        <h3>Ediciones Limitadas</h3>
-        <div class="tarjetas">
-          <div class="card bloqueada">
-            <img src="img/proximamente.jpg" alt="Próximamente">
-            <p><strong>Próximamente...</strong></p>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <!-- Contenedor para llaveros generados dinámicamente -->
+    <div id="llaverosContainer" class="grid-llaveros"></div>
   </main>
 
   <footer>© 2025 Llaveros UCQ</footer>
 
-  <script src="script.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    // ======================
+    // Generación de llaveros y progreso
+    // ======================
+    const llaveros = [
+      { nombre: "Gatita Gymrat", imagen: "img/gymrat.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-gymrat.html" },
+      { nombre: "Gatita Gamer/Animación", imagen: "img/gamer.jpg", conseguido: false, enlace: "productos/coleccion gatita sep 2025/gatita-gamer.html" },
+      { nombre: "Gatita KNY", imagen: "img/kny.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-kny.html" },
+      { nombre: "Gatita Odonto", imagen: "img/odonto.jpg", conseguido: false, enlace: "productos/coleccion gatita sep 2025/gatita-odonto.html" },
+      { nombre: "Gatita Dormida", imagen: "img/dormida.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-dormida.html" },
+      { nombre: "Gatita Hello Kitty", imagen: "img/hello.jpg", conseguido: false, enlace: "productos/coleccion gatita sep 2025/gatita-hello-kitty.html" },
+      { nombre: "Gatita Cinnamoroll", imagen: "img/cinnamoroll.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-cinnamoroll.html" },
+      { nombre: "Gatita My Melody", imagen: "img/my-melody.jpg", conseguido: false, enlace: "productos/coleccion gatita sep 2025/gatita-my-melody.html" },
+      { nombre: "Gatita Kuromi", imagen: "img/kuromi.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-kuromi.html" },
+      { nombre: "Gatita Plátano", imagen: "img/platano.jpg", conseguido: false, enlace: "productos/coleccion gatita sep2025/gatita-platano.html" }
+    ];
+
+    const container = document.getElementById('llaverosContainer');
+    const progresoBar = document.getElementById('progresoBar');
+    const progresoTexto = document.getElementById('progresoTexto');
+
+    if (container) {
+      llaveros.forEach(llavero => {
+        const tarjeta = document.createElement('a');
+        tarjeta.className = 'tarjeta-llavero ' + (llavero.conseguido ? 'conseguido' : 'faltante');
+        tarjeta.href = llavero.enlace;
+        tarjeta.innerHTML = `
+          <img src="${llavero.imagen}" alt="${llavero.nombre}">
+          <div class="nombre">${llavero.nombre}</div>
+          <div class="estado">${llavero.conseguido ? 'Conseguido' : 'Faltante'}</div>
+        `;
+        container.appendChild(tarjeta);
+      });
+    }
+
+    // Actualiza barra de progreso
+    if (progresoBar && progresoTexto) {
+      const total = llaveros.length;
+      const conseguidos = llaveros.filter(l => l.conseguido).length;
+      const porcentaje = Math.round((conseguidos / total) * 100);
+      progresoBar.style.width = porcentaje + '%';
+      progresoTexto.textContent = `Progreso para recompensa: ${porcentaje}%`;
+    }
+
+  });
+  </script>
 </body>
 </html>

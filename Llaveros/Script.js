@@ -3,17 +3,33 @@ document.addEventListener("DOMContentLoaded", () => {
   // ======================
   // Carrusel automático
   // ======================
-  const images = document.querySelectorAll(".carousel img");
-  if (images.length > 0) {
+  const carousel = document.querySelector(".carousel");
+  if (carousel) {
+    const images = carousel.querySelectorAll("img");
     let index = 0;
+
+    // Asegura que solo la primera imagen esté visible
+    images.forEach((img, i) => {
+      img.style.opacity = i === 0 ? 1 : 0;
+      img.style.transition = "opacity 1s ease";
+      img.style.position = "absolute";
+      img.style.top = 0;
+      img.style.left = 0;
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.objectFit = "cover";
+    });
+
     function showNextImage() {
-      images[index].classList.remove("active");
+      const prevIndex = index;
       index = (index + 1) % images.length;
-      images[index].classList.add("active");
+      images[prevIndex].style.opacity = 0;
+      images[index].style.opacity = 1;
     }
+
     setInterval(showNextImage, 4000);
   }
-
+  
   // ======================
   // Lógica del carrito
   // ======================
