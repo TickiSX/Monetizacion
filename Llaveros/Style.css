@@ -79,7 +79,7 @@ footer {
   position: relative;
   width: 95%;
   max-width: 1200px;
-  height: 650px; /* altura fija para escritorio */
+  height: 650px;
   margin: 30px auto;
   overflow: hidden;
   border-radius: 15px;
@@ -92,7 +92,7 @@ footer {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* mantiene proporción y recorta si es necesario */
+  object-fit: cover;
   opacity: 0;
   transition: opacity 1s ease;
 }
@@ -101,10 +101,9 @@ footer {
   opacity: 1;
 }
 
-/* Responsivo */
 @media screen and (max-width: 768px) {
   .carousel {
-    height: 250px; /* más pequeño en móviles */
+    height: 250px;
   }
 }
 
@@ -167,7 +166,7 @@ footer {
 
 /* BOTÓN AGREGAR AL CARRITO - COLOR VERDE */
 .card button {
-  background: #4caf50; /* verde */
+  background: #4caf50;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -180,7 +179,7 @@ footer {
 }
 
 .card button:hover {
-  background: #45a049; /* verde un poco más oscuro al pasar el mouse */
+  background: #45a049;
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
@@ -190,16 +189,9 @@ footer {
   cursor: not-allowed;
 }
 
-
 /* =============================
    ESTILO MODERNO DEL CARRITO
    ============================= */
-main {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
 #carrito-lista {
   list-style: none;
   padding: 0;
@@ -230,6 +222,7 @@ main {
   color: #333;
 }
 
+/* Botón general del carrito */
 #carrito-lista li button {
   background: linear-gradient(135deg, #66a6ff, #89f7fe);
   color: #fff;
@@ -242,16 +235,29 @@ main {
   margin-left: 15px;
 }
 
-#carrito-lista li button:hover {
+/* Botón vaciar carrito - gris */
+#carrito-lista li button.vaciar {
+  background: #888;
+  color: #fff;
+}
+
+#carrito-lista li button.vaciar:hover {
+  background: #666;
+}
+
+/* Hover para otros botones del carrito */
+#carrito-lista li button:not(.vaciar):hover {
   background: linear-gradient(135deg, #5588dd, #66b0ff);
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
+/* Total en negro y negritas */
 #carrito-total {
   display: inline-block;
   font-size: 1.3rem;
-  color: #4caf50;
+  color: #000;
+  font-weight: bold; 
   margin-top: 15px;
 }
 
@@ -290,18 +296,18 @@ main > button:hover {
 }
 
 /* =============================
-   ESTILOS DE TARJETAS DE ÍNDICE
+   TARJETAS DE ÍNDICE
    ============================= */
 .grid-llaveros {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 tarjetas por fila */
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
   margin-top: 30px;
 }
 
 .tarjeta-llavero {
-  text-decoration: none; /* Quita subrayado */
-  color: #333;           /* Color de texto neutro */
+  text-decoration: none;
+  color: #333;
   background: #f9f9f9;
   border-radius: 15px;
   overflow: hidden;
@@ -335,7 +341,6 @@ main > button:hover {
   color: #fff;
 }
 
-/* Estilo tarjetas conseguidas */
 .tarjeta-llavero.conseguido {
   background-color: #f9f9f9;
 }
@@ -344,7 +349,6 @@ main > button:hover {
   background-color: #4caf50;
 }
 
-/* Estilo tarjetas faltantes */
 .tarjeta-llavero.faltante {
   background-color: #e0e0e0;
 }
@@ -354,23 +358,21 @@ main > button:hover {
 }
 
 .tarjeta-llavero.faltante .estado {
-  background-color: #777; /* Gris oscuro para “Faltante” */
+  background-color: #777;
 }
 
-/* Hover para todas las tarjetas */
 .tarjeta-llavero:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
-/* Quitar color y subrayado en todos los enlaces dentro del grid */
 .grid-llaveros a {
   text-decoration: none;
   color: inherit;
 }
 
 /* =============================
-   ESTILOS DE LA BARRA DE PROGRESO
+   BARRA DE PROGRESO
    ============================= */
 .progreso-container {
   background-color: #ddd;
@@ -395,7 +397,6 @@ main > button:hover {
   margin-top: 10px;
   font-size: 1rem;
 }
-
 
 /* =============================
    CONÓCENOS - PERFIL DEL EQUIPO
@@ -463,74 +464,35 @@ main > button:hover {
 }
 
 /* =============================
-   CARLOS GONZALEZ - PERFIL Y REDES SOCIALES
+   REDES SOCIALES DE CARLOS
    ============================= */
-.perfil {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 30px 15px;
-}
-
-.perfil img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  margin-bottom: 15px;
-  object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.redes.carlos-redes {
+.carlos-redes {
   display: flex;
   justify-content: center;
   gap: 25px;
   margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.carlos-redes a {
+  display: inline-block;
+  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
 }
 
 .carlos-redes a img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  object-fit: cover;
   cursor: pointer;
-  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
 }
 
 .carlos-redes a img:hover {
   transform: scale(1.2) rotate(-5deg);
   filter: brightness(1.2);
   box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-}
-
-.trabajos {
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.trabajos-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-}
-
-.trabajos-grid img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.trabajos-grid img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 
 /* =============================
