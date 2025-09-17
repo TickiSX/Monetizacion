@@ -28,7 +28,70 @@
     <p style="text-align:center;">Visualiza los llaveros que tienes y los que te faltan.</p>
 
     <!-- Contenedor para llaveros generados dinámicamente -->
-    <div id="llaverosContainer" class="grid-llaveros"></div>
+    <div id="llaverosContainer" class="grid-llaveros">
+      
+      <!-- Lista de llaveros editable individualmente -->
+      <div class="llavero"
+           data-nombre="Gatita Gymrat"
+           data-imagen="img/gymrat.jpg"
+           data-conseguido="true"
+           data-enlace="indice/i-gatita-gymrat.html"></div>
+
+      <div class="llavero"
+           data-nombre="Gatita Gamer/Animación"
+           data-imagen="img/gamer.jpg"
+           data-conseguido="false"
+           data-enlace="indice/i-gatita-gamer.html"></div>
+
+      <div class="llavero"
+           data-nombre="Gatita KNY"
+           data-imagen="img/kny.jpg"
+           data-conseguido="true"
+           data-enlace="indice/i-gatita-kny.html"></div>
+
+      <div class="llavero"
+           data-nombre="Gatita Odonto"
+           data-imagen="img/odonto.jpg"
+           data-conseguido="false"
+           data-enlace="indice/i-gatita-odonto.html"></div>
+
+      <div class="llavero"
+           data-nombre="Gatita Dormida"
+           data-imagen="img/dormida.jpg"
+           data-conseguido="true"
+           data-enlace="indice/i-gatita-dormida.html"></div>
+
+      <div class="llavero"
+           data-nombre="Gatita Hello Kitty"
+           data-imagen="img/hello.jpg"
+           data-conseguido="false"
+           data-enlace="indice/i-gatita-hello-kitty.html"></div>
+
+      <div class="llavero"
+           data-nombre="Gatita Cinnamoroll"
+           data-imagen="img/cinnamoroll.jpg"
+           data-conseguido="true"
+           data-enlace="indice/i-gatita-cinnamoroll.html"></div>
+
+      <div class="llavero"
+           data-nombre="Gatita My Melody"
+           data-imagen="img/my-melody.jpg"
+           data-conseguido="false"
+           data-enlace="indice/i-gatita-my-melody.html"></div>
+
+      <div class="llavero"
+           data-nombre="Gatita Kuromi"
+           data-imagen="img/kuromi.jpg"
+           data-conseguido="true"
+           data-enlace="indice/i-gatita-kuromi.html"></div>
+
+      <div class="llavero"
+           data-nombre="Gatita Plátano"
+           data-imagen="img/platano.jpg"
+           data-conseguido="false"
+           data-enlace="indice/i-gatita-platano.html"></div>
+
+    </div>
   </main>
 
   <footer>© 2025 Llaveros UCQ</footer>
@@ -36,27 +99,18 @@
   <script>
   document.addEventListener("DOMContentLoaded", () => {
 
-    // ======================
-    // Generación de llaveros y progreso
-    // ======================
-    const llaveros = [
-      { nombre: "Gatita Gymrat", imagen: "img/gymrat.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-gymrat.html" },
-      { nombre: "Gatita Gamer/Animación", imagen: "img/gamer.jpg", conseguido: false, enlace: "productos/coleccion gatita sep 2025/gatita-gamer.html" },
-      { nombre: "Gatita KNY", imagen: "img/kny.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-kny.html" },
-      { nombre: "Gatita Odonto", imagen: "img/odonto.jpg", conseguido: false, enlace: "productos/coleccion gatita sep 2025/gatita-odonto.html" },
-      { nombre: "Gatita Dormida", imagen: "img/dormida.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-dormida.html" },
-      { nombre: "Gatita Hello Kitty", imagen: "img/hello.jpg", conseguido: false, enlace: "productos/coleccion gatita sep 2025/gatita-hello-kitty.html" },
-      { nombre: "Gatita Cinnamoroll", imagen: "img/cinnamoroll.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-cinnamoroll.html" },
-      { nombre: "Gatita My Melody", imagen: "img/my-melody.jpg", conseguido: false, enlace: "productos/coleccion gatita sep 2025/gatita-my-melody.html" },
-      { nombre: "Gatita Kuromi", imagen: "img/kuromi.jpg", conseguido: true, enlace: "productos/coleccion gatita sep 2025/gatita-kuromi.html" },
-      { nombre: "Gatita Plátano", imagen: "img/platano.jpg", conseguido: false, enlace: "productos/coleccion gatitasep-2025/gatita-platano.html" }
-    ];
-
     const container = document.getElementById('llaverosContainer');
     const progresoBar = document.getElementById('progresoBar');
     const progresoTexto = document.getElementById('progresoTexto');
 
     if (container) {
+      const llaveros = Array.from(container.querySelectorAll('.llavero')).map(div => ({
+        nombre: div.dataset.nombre,
+        imagen: div.dataset.imagen,
+        conseguido: div.dataset.conseguido === "true",
+        enlace: div.dataset.enlace
+      }));
+
       llaveros.forEach(llavero => {
         const tarjeta = document.createElement('a');
         tarjeta.className = 'tarjeta-llavero ' + (llavero.conseguido ? 'conseguido' : 'faltante');
@@ -68,10 +122,8 @@
         `;
         container.appendChild(tarjeta);
       });
-    }
 
-    // Actualiza barra de progreso
-    if (progresoBar && progresoTexto) {
+      // Actualiza barra de progreso
       const total = llaveros.length;
       const conseguidos = llaveros.filter(l => l.conseguido).length;
       const porcentaje = Math.round((conseguidos / total) * 100);

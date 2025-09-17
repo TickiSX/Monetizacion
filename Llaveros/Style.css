@@ -372,6 +372,27 @@ main > button:hover {
 }
 
 /* =============================
+   ESTADOS EN DETALLE DE PRODUCTO
+   ============================= */
+#estadoLlavero {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-weight: bold;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.estado-conseguido {
+  background-color: #4caf50; /* verde */
+}
+
+.estado-faltante {
+  background-color: #777; /* gris */
+}
+
+/* =============================
    BARRA DE PROGRESO
    ============================= */
 .progreso-container {
@@ -493,6 +514,33 @@ main > button:hover {
   transform: scale(1.2) rotate(-5deg);
   filter: brightness(1.2);
   box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+/* =============================
+   BOTÓN AGREGAR AL CARRITO (DETALLE DE PRODUCTO)
+   ============================= */
+.agregar-carrito {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.agregar-carrito:hover {
+  background: #45a049;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.agregar-carrito:disabled {
+  background: #888;
+  cursor: not-allowed;
 }
 
 /* =============================

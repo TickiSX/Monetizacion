@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const images = carousel.querySelectorAll("img");
     let index = 0;
 
-    // Asegura que solo la primera imagen esté visible
+    // Solo la primera imagen visible
     images.forEach((img, i) => {
       img.style.opacity = i === 0 ? 1 : 0;
       img.style.transition = "opacity 1s ease";
@@ -29,55 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setInterval(showNextImage, 4000);
   }
-  
-  // ======================
-  // Lógica del carrito
-  // ======================
-  const botonesAgregar = document.querySelectorAll(".agregar-carrito");
-  botonesAgregar.forEach(boton => {
-    boton.addEventListener("click", () => {
-      const producto = {
-        nombre: boton.dataset.nombre,
-        precio: parseFloat(boton.dataset.precio)
-      };
-      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-      carrito.push(producto);
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      alert(`${producto.nombre} agregado al carrito 🛍️`);
-    });
-  });
-
-  const listaCarrito = document.getElementById("carrito-lista");
-  const totalElemento = document.getElementById("carrito-total");
-
-  if (listaCarrito && totalElemento) {
-    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    let total = 0;
-    listaCarrito.innerHTML = "";
-
-    carrito.forEach((producto, index) => {
-      const li = document.createElement("li");
-      li.textContent = `${producto.nombre} - $${producto.precio.toFixed(2)}`;
-
-      const btnEliminar = document.createElement("button");
-      btnEliminar.textContent = "❌";
-      btnEliminar.style.marginLeft = "10px";
-      btnEliminar.addEventListener("click", () => {
-        carrito.splice(index, 1);
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-        location.reload();
-      });
-
-      li.appendChild(btnEliminar);
-      listaCarrito.appendChild(li);
-      total += producto.precio;
-    });
-
-    totalElemento.textContent = `$${total.toFixed(2)}`;
-  }
 
   // ======================
-  // Generación de llaveros y progreso
+  // Base de datos de llaveros
   // ======================
   const llaveros = [
     { nombre: "Gatita Gymrat", imagen: "productos/gymrat.jpg", conseguido: true },
@@ -92,30 +46,56 @@ document.addEventListener("DOMContentLoaded", () => {
     { nombre: "Gatita Plátano", imagen: "productos/platano.jpg", conseguido: false }
   ];
 
-  const container = document.getElementById('llaverosContainer');
-  const progresoBar = document.getElementById('progresoBar');
-  const progresoTexto = document.getElementById('progresoTexto');
+  // ======================
+  // Generación de tarjetas en índice
+  // ======================
+  const container = document.getElementById("llaverosContainer");
+  const progresoBar = document.getElementById("progresoBar");
+  const progresoTexto = document.getElementById("progresoTexto");
 
   if (container) {
     llaveros.forEach(llavero => {
-      const tarjeta = document.createElement('div');
-      tarjeta.className = 'tarjeta-llavero ' + (llavero.conseguido ? 'conseguido' : 'faltante');
+      const tarjeta = document.createElement("div");
+      tarjeta.className = "tarjeta-llavero " + (llavero.conseguido ? "conseguido" : "faltante");
       tarjeta.innerHTML = `
         <img src="${llavero.imagen}" alt="${llavero.nombre}">
         <div class="nombre">${llavero.nombre}</div>
-        <div class="estado">${llavero.conseguido ? 'Conseguido' : 'Faltante'}</div>
+        <div class="estado ${llavero.conseguido ? "estado-conseguido" : "estado-faltante"}">
+          ${llavero.conseguido ? "Conseguido" : "Faltante"}
+        </div>
       `;
       container.appendChild(tarjeta);
     });
   }
 
-  // Actualiza barra de progreso
+  // ======================
+  // Barra de progreso
+  // ======================
   if (progresoBar && progresoTexto) {
     const total = llaveros.length;
     const conseguidos = llaveros.filter(l => l.conseguido).length;
     const porcentaje = Math.round((conseguidos / total) * 100);
-    progresoBar.style.width = porcentaje + '%';
+    progresoBar.style.width = porcentaje + "%";
     progresoTexto.textContent = `Progreso para recompensa: ${porcentaje}%`;
+  }
+
+  // ======================
+  // Estado en página de detalle
+  // ======================
+  const estadoDetalle = document.getElementById("estadoLlavero");
+  const nombreDetalle = document.querySelector(".detalle-nombre");
+
+  if (estadoDetalle && nombreDetalle) {
+    const nombre = nombreDetalle.textContent.replace("🐱", "").trim();
+    const llavero = llaveros.find(l => l.nombre === nombre);
+
+    if (llavero) {
+      estadoDetalle.textContent = llavero.conseguido ? "Conseguido" : "Faltante";
+      estadoDetalle.classList.add(llavero.conseguido ? "estado-conseguido" : "estado-faltante");
+    } else {
+      estadoDetalle.textContent = "No encontrado";
+      estadoDetalle.classList.add("estado-faltante");
+    }
   }
 
 });
