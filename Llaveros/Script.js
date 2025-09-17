@@ -99,3 +99,65 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
+// ======== TIENDA ========
+// Esperamos a que cargue el DOM
+document.addEventListener("DOMContentLoaded", () => {
+  // Seleccionamos todos los botones de agregar al carrito
+  const botonesAgregar = document.querySelectorAll(".agregar-carrito");
+
+  botonesAgregar.forEach(boton => {
+    boton.addEventListener("click", () => {
+      const nombre = boton.getAttribute("data-nombre");
+      const precio = parseFloat(boton.getAttribute("data-precio"));
+
+      // Obtener carrito del localStorage o crear uno vacío
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+      // Agregar el producto al carrito
+      carrito.push({ nombre, precio });
+
+      // Guardar de nuevo en localStorage
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+
+      // Mensaje opcional
+      alert(`"${nombre}" se agregó al carrito`);
+    });
+  });
+
+  // ======== CARRITO ========
+  const carritoLista = document.getElementById("carrito-lista");
+  const carritoTotal = document.getElementById("carrito-total");
+
+  if (carritoLista) {
+    // Obtener carrito del localStorage
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    // Limpiar lista
+    carritoLista.innerHTML = "";
+
+    let total = 0;
+
+    carrito.forEach((producto, index) => {
+      total += producto.precio;
+
+      const li = document.createElement("li");
+      li.textContent = `${producto.nombre} - $${producto.precio.toFixed(2)}`;
+
+      // Botón para eliminar un producto individual
+      const btnEliminar = document.createElement("button");
+      btnEliminar.textContent = "❌";
+      btnEliminar.style.marginLeft = "10px";
+      btnEliminar.addEventListener("click", () => {
+        carrito.splice(index, 1);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        location.reload(); // Recargar para actualizar lista
+      });
+
+      li.appendChild(btnEliminar);
+      carritoLista.appendChild(li);
+    });
+
+    carritoTotal.textContent = `$${total.toFixed(2)}`;
+  }
+});
