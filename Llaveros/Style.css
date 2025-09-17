@@ -476,6 +476,15 @@ main button:hover {
   transform: scale(1.05);
 }
 
+/* =============================
+   PRODUCTO DETALLE
+   PÁGINA: producto individual
+   ============================= */
+.producto-info h2 {
+  border-left: none; /* quita la línea azul */
+  padding-left: 0;
+  text-align: center; /* opcional: centra el título */
+}
 
 /* =============================
    RESPONSIVE
