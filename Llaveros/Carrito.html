@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Llaveros UCQ | Carrito</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>Llaveros UCQ</header>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="indice.html">Índice</a>
+    <a href="tienda.html">Tienda</a>
+    <a href="carrito.html">Carrito</a>
+    <a href="conocenos.html">Conócenos</a>
+  </nav>
+
+  <main>
+    <h2>Tu carrito</h2>
+    <ul id="carrito-lista"></ul>
+    <p><strong>Total:</strong> <span id="carrito-total">$0.00</span></p>
+    <button onclick="localStorage.clear(); location.reload();">Vaciar carrito 🗑️</button>
+  </main>
+
+  <footer>
+    © 2025 Llaveros UCQ
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
