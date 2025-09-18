@@ -4,9 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Llaveros UCQ | Inicio</title>
+
+  <!-- Estilos propios -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Manifest PWA -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#66a6ff">
+  <meta name="theme-color" content="#000000">
+
+  <!-- iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="img/icon-192.png">
@@ -27,44 +33,49 @@
     <p>Explora nuestra colección de llaveros para ti guerrero. Hechos con dedicación para acompañarte a todas partes.</p>
   </main>
 
+  <!-- Carrusel -->
   <div class="carousel">
     <img src="img/GATA.jpg" class="active" alt="Llavero 1">
     <img src="img/CONTROL.jpg" alt="Llavero 2">
     <img src="img/MUELA.jpg" alt="Llavero 3">
   </div>
 
+  <!-- Botón de instalación siempre visible -->
+  <button id="installBtn" style="position:fixed;right:12px;bottom:12px;display:block;z-index:1000;">
+    Descargar App
+  </button>
+
   <footer>
     © 2025 Llaveros UCQ | Todos los derechos reservados
   </footer>
 
-  <!-- Botón de instalación siempre visible en Android -->
-  <button id="installBtn" style="position:fixed;right:12px;bottom:12px;padding:12px 20px;border-radius:30px;background:#66a6ff;color:white;font-weight:bold;border:none;cursor:pointer;display:none;">
-    Descargar App
-  </button>
-
+  <!-- JS Carrusel -->
   <script>
-    // Service Worker
+    const slides = document.querySelectorAll(".carousel img");
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
+    }
+
+    setInterval(() => {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }, 3000); // cambia cada 3 segundos
+  </script>
+
+  <!-- Registro Service Worker -->
+  <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./service-worker.js")
         .then(() => console.log("Service Worker registrado"))
         .catch(err => console.error("Error al registrar SW:", err));
     }
 
-    const installBtn = document.getElementById("installBtn");
+    // Manejo del botón de descarga PWA
     let deferredPrompt;
+    const installBtn = document.getElementById("installBtn");
 
-    // Detectar iOS
-    const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-    const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches;
-
-    if (isIos && !isInStandaloneMode) {
-      alert("Para instalar esta app en iOS: pulsa el botón Compartir y luego 'Agregar a pantalla de inicio'.");
-    } else if (!isIos) {
-      // Mostrar botón siempre en Android / navegadores que soportan PWA
-      installBtn.style.display = "block";
-    }
-
-    // Capturar beforeinstallprompt (Android)
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
@@ -72,15 +83,17 @@
 
     installBtn.addEventListener("click", async () => {
       if (deferredPrompt) {
+        // Navegador soporta PWA
         deferredPrompt.prompt();
         const choice = await deferredPrompt.userChoice;
         if (choice.outcome === "accepted") {
           installBtn.textContent = "Instalada";
-          installBtn.disabled = true;
         }
         deferredPrompt = null;
       } else {
-        alert("Si tu navegador no permite instalación automática, abre el menú y selecciona 'Agregar a pantalla de inicio'.");
+        // Mostrar mensaje explicativo si no se puede instalar
+        alert("Tu navegador no soporta instalación automática de PWA.\n" +
+              "Si estás en móvil, puedes usar la opción 'Agregar a pantalla de inicio'");
       }
     });
   </script>
