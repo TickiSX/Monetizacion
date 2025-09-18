@@ -1,4 +1,4 @@
-/* =============================
+/* ============================= 
    ESTILOS GENERALES DEL PROYECTO
    ============================= */
 body {
@@ -281,20 +281,6 @@ main > button:hover {
   box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 }
 
-/* RESPONSIVE */
-@media screen and (max-width: 500px) {
-  #carrito-lista li {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  #carrito-lista li button {
-    margin-left: 0;
-    align-self: flex-end;
-  }
-}
-
 /* =============================
    TARJETAS DE ÍNDICE
    ============================= */
@@ -544,7 +530,7 @@ main > button:hover {
 }
 
 /* =============================
-   RESPONSIVE
+   RESPONSIVE EXISTENTE
    ============================= */
 @media screen and (max-width: 768px) {
   .tarjetas {
@@ -557,5 +543,52 @@ main > button:hover {
 
   .equipo {
     grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #carrito-lista li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #carrito-lista li button {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+}
+
+/* =============================
+   AJUSTES ADICIONALES PARA CELULAR
+   ============================= */
+@media screen and (max-width: 768px) {
+  /* Asegurar que la barra de navegación se vea bien */
+  nav {
+    flex-wrap: wrap;      
+    justify-content: center;
+    gap: 15px;            
+    padding: 12px 10px;   
+    font-size: 1rem;      
+  }
+
+  /* Tarjetas de la tienda */
+  .tarjetas {
+    grid-template-columns: 1fr; 
+    gap: 15px;
+  }
+
+  /* Tarjetas de índice (llaveros) */
+  .grid-llaveros {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px;
+  }
+}
+
+/* Ajuste extra para pantallas muy pequeñas */
+@media screen and (max-width: 500px) {
+  .tarjetas, .grid-llaveros {
+    grid-template-columns: 1fr; 
+    gap: 10px;
   }
 }
