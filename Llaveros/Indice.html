@@ -27,10 +27,9 @@
     <h2>Índice de Llaveros</h2>
     <p style="text-align:center;">Visualiza los llaveros que tienes y los que te faltan.</p>
 
-    <!-- Contenedor para llaveros generados dinámicamente -->
+    <!-- Contenedor para llaveros -->
     <div id="llaverosContainer" class="grid-llaveros">
-      
-      <!-- Lista de llaveros editable individualmente -->
+
       <div class="llavero"
            data-nombre="Gatita Gymrat"
            data-imagen="img/gymrat.jpg"
@@ -44,12 +43,6 @@
            data-enlace="indice/i-gatita-gamer.html"></div>
 
       <div class="llavero"
-           data-nombre="Gatita KNY"
-           data-imagen="img/kny.jpg"
-           data-conseguido="true"
-           data-enlace="indice/i-gatita-kny.html"></div>
-
-      <div class="llavero"
            data-nombre="Gatita Odonto"
            data-imagen="img/odonto.jpg"
            data-conseguido="false"
@@ -60,12 +53,6 @@
            data-imagen="img/dormida.jpg"
            data-conseguido="true"
            data-enlace="indice/i-gatita-dormida.html"></div>
-
-      <div class="llavero"
-           data-nombre="Gatita Hello Kitty"
-           data-imagen="img/hello.jpg"
-           data-conseguido="false"
-           data-enlace="indice/i-gatita-hello-kitty.html"></div>
 
       <div class="llavero"
            data-nombre="Gatita Cinnamoroll"
@@ -98,7 +85,6 @@
 
   <script>
   document.addEventListener("DOMContentLoaded", () => {
-
     const container = document.getElementById('llaverosContainer');
     const progresoBar = document.getElementById('progresoBar');
     const progresoTexto = document.getElementById('progresoTexto');
@@ -123,14 +109,12 @@
         container.appendChild(tarjeta);
       });
 
-      // Actualiza barra de progreso
       const total = llaveros.length;
       const conseguidos = llaveros.filter(l => l.conseguido).length;
       const porcentaje = Math.round((conseguidos / total) * 100);
       progresoBar.style.width = porcentaje + '%';
       progresoTexto.textContent = `Progreso para recompensa: ${porcentaje}%`;
     }
-
   });
   </script>
 </body>
