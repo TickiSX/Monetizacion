@@ -1,20 +1,28 @@
-/* ============================= 
+/* =============================
    ESTILOS GENERALES DEL PROYECTO
    ============================= */
+:root{
+  --maxw: 1000px;
+}
+
+*{ box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #fdfdfd;
   color: #333;
   line-height: 1.6;
+  /* 🔧 NUEVO: evita que el botón fijo tape contenido en móviles */
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 header {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
   color: #fff;
   text-align: center;
-  padding: 30px 20px;
-  font-size: 3rem;
+  padding: clamp(18px, 5vw, 30px) 20px; /* 🔧 NUEVO: padding fluido */
+  font-size: clamp(1.6rem, 6vw, 3rem);   /* 🔧 NUEVO: tamaño fluido */
   font-weight: bold;
   letter-spacing: 2px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -26,11 +34,16 @@ nav {
   background: #ffffffee;
   display: flex;
   justify-content: center;
-  gap: 25px;
-  padding: 18px 0;
-  font-size: 1.1rem;
+  gap: clamp(10px, 3vw, 25px); /* 🔧 NUEVO */
+  padding: 12px clamp(10px, 3vw, 24px);   /* 🔧 NUEVO */
+  font-size: clamp(0.95rem, 2.6vw, 1.1rem); /* 🔧 NUEVO */
   z-index: 1000;
   backdrop-filter: blur(6px);
+  /* 🔧 NUEVO: que no se rompa en móviles */
+  flex-wrap: wrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 nav a {
@@ -40,16 +53,17 @@ nav a {
   padding: 8px 15px;
   border-radius: 20px;
   transition: all 0.3s ease;
+  /* 🔧 NUEVO: asegura targets cómodos en táctil */
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
 }
 
-nav a:hover {
-  background: #66a6ff;
-  color: #fff;
-}
+nav a:hover { background: #66a6ff; color: #fff; }
 
 main {
-  padding: 30px;
-  max-width: 1000px;
+  padding: clamp(16px, 4vw, 30px); /* 🔧 NUEVO */
+  max-width: var(--maxw);
   margin: auto;
 }
 
@@ -58,18 +72,18 @@ h2 {
   border-left: 5px solid #66a6ff;
   padding-left: 10px;
   margin-bottom: 15px;
+  font-size: clamp(1.1rem, 3.5vw, 1.6rem); /* 🔧 NUEVO */
 }
 
-p {
-  margin-bottom: 15px;
-}
+p { margin-bottom: 15px; font-size: clamp(.95rem, 2.8vw, 1.05rem); } /* 🔧 NUEVO */
 
 footer {
   background: #66a6ff;
   color: white;
   text-align: center;
-  padding: 15px;
+  padding: clamp(12px, 3.5vw, 15px); /* 🔧 NUEVO */
   margin-top: 30px;
+  font-size: clamp(.9rem, 2.6vw, 1rem);   /* 🔧 NUEVO */
 }
 
 /* =============================
@@ -77,47 +91,42 @@ footer {
    ============================= */
 .carousel {
   position: relative;
-  width: 95%;
-  max-width: 1200px;
-  height: 650px;
+  width: min(95%, var(--maxw));
   margin: 30px auto;
   overflow: hidden;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  /* 🔧 NUEVO: relación en vez de altura fija */
+  aspect-ratio: 16 / 9;
+  height: auto; /* ignora alturas fijas */
 }
 
 .carousel img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
   object-fit: cover;
   opacity: 0;
   transition: opacity 1s ease;
 }
 
-.carousel img.active {
-  opacity: 1;
-}
+.carousel img.active { opacity: 1; }
 
-@media screen and (max-width: 768px) {
-  .carousel {
-    height: 250px;
-  }
+/* 🔧 NUEVO: si realmente quieres una altura mínima en tablets */
+@media (min-width: 768px){
+  .carousel{ aspect-ratio: 16/7; }
 }
 
 /* =============================
    ESTILOS PARA LA TIENDA Y PRODUCTOS
    ============================= */
 .tienda-container {
-  padding: 30px;
-  max-width: 1200px;
+  padding: clamp(16px, 4vw, 30px); /* 🔧 NUEVO */
+  max-width: var(--maxw);
   margin: 0 auto;
 }
 
 .categoria h3 {
-  font-size: 1.5em;
+  font-size: clamp(1.1rem, 3.6vw, 1.5em); /* 🔧 NUEVO */
   color: #444;
   margin-bottom: 15px;
   border-bottom: 2px solid #444;
@@ -125,26 +134,23 @@ footer {
   padding-bottom: 5px;
 }
 
+/* 🔧 NUEVO: grid fluido con autofit */
 .tarjetas {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);  /* ✅ 4 columnas en pantallas grandes */
-  grid-template-rows: repeat(2, auto);    /* ✅ 2 filas para mayor consistencia */
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: clamp(12px, 3vw, 20px);
 }
 
 .card {
   background: #fff;
   border-radius: 15px;
-  padding: 15px;
+  padding: clamp(12px, 3.5vw, 15px); /* 🔧 NUEVO */
   text-align: center;
   box-shadow: 0 6px 15px rgba(0,0,0,0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
+.card:hover { transform: scale(1.03); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
 .card img {
   width: 100%;
@@ -155,14 +161,9 @@ footer {
   transition: filter 0.3s;
 }
 
-.card p {
-  margin: 5px 0;
-}
+.card p { margin: 5px 0; font-size: clamp(.9rem, 2.6vw, 1rem); } /* 🔧 NUEVO */
 
-.tarjetas a {
-  text-decoration: none;
-  color: inherit;
-}
+.tarjetas a { text-decoration: none; color: inherit; }
 
 .card button {
   background: #4caf50;
@@ -183,10 +184,7 @@ footer {
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
-.card button:disabled {
-  background: #888;
-  cursor: not-allowed;
-}
+.card button:disabled { background: #888; cursor: not-allowed; }
 
 /* =============================
    ESTILO MODERNO DEL CARRITO
@@ -205,21 +203,15 @@ footer {
   justify-content: space-between;
   align-items: center;
   background: #f9f9f9;
-  padding: 15px 20px;
+  padding: clamp(12px, 3.5vw, 15px); /* 🔧 NUEVO */
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-#carrito-lista li:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
+#carrito-lista li:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
 
-#carrito-lista li span {
-  font-weight: bold;
-  color: #333;
-}
+#carrito-lista li span { font-weight: bold; color: #333; }
 
 #carrito-lista li button {
   background: linear-gradient(135deg, #66a6ff, #89f7fe);
@@ -233,15 +225,8 @@ footer {
   margin-left: 15px;
 }
 
-#carrito-lista li button.vaciar {
-  background: #888;
-  color: #fff;
-}
-
-#carrito-lista li button.vaciar:hover {
-  background: #666;
-}
-
+#carrito-lista li button.vaciar { background: #888; color: #fff; }
+#carrito-lista li button.vaciar:hover { background: #666; }
 #carrito-lista li button:not(.vaciar):hover {
   background: linear-gradient(135deg, #5588dd, #66b0ff);
   transform: translateY(-2px) scale(1.05);
@@ -250,7 +235,7 @@ footer {
 
 #carrito-total {
   display: inline-block;
-  font-size: 1.3rem;
+  font-size: clamp(1.05rem, 3.2vw, 1.3rem); /* 🔧 NUEVO */
   color: #000;
   font-weight: bold; 
   margin-top: 15px;
@@ -279,11 +264,11 @@ main > button:hover {
 /* =============================
    TARJETAS DE ÍNDICE
    ============================= */
+/* 🔧 NUEVO: grid fluido */
 .grid-llaveros {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* ✅ 4 columnas en pantallas grandes */
-  grid-template-rows: repeat(2, auto);   /* ✅ 2 filas para consistencia */
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: clamp(12px, 3vw, 20px);
   margin-top: 30px;
 }
 
@@ -298,60 +283,41 @@ main > button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px 10px;
+  padding: clamp(12px, 3.5vw, 15px); /* 🔧 NUEVO */
 }
 
 .tarjeta-llavero img {
   width: 100%;
   border-radius: 10px;
   object-fit: cover;
+  /* 🔧 NUEVO: altura mínima razonable en móviles */
+  aspect-ratio: 1 / 1;
 }
 
 .tarjeta-llavero .nombre {
   margin-top: 10px;
   font-weight: bold;
   text-align: center;
-  font-size: 1rem;
+  font-size: clamp(.95rem, 2.8vw, 1rem); /* 🔧 NUEVO */
 }
 
 .tarjeta-llavero .estado {
   margin-top: 5px;
-  font-size: 0.9rem;
+  font-size: clamp(.85rem, 2.5vw, .95rem); /* 🔧 NUEVO */
   padding: 5px 12px;
   border-radius: 20px;
   font-weight: bold;
   color: #fff;
 }
 
-.tarjeta-llavero.conseguido {
-  background-color: #f9f9f9;
-}
+.tarjeta-llavero.conseguido { background-color: #f9f9f9; }
+.tarjeta-llavero.conseguido .estado { background-color: #4caf50; }
+.tarjeta-llavero.faltante { background-color: #e0e0e0; }
+.tarjeta-llavero.faltante img { filter: grayscale(100%); }
+.tarjeta-llavero.faltante .estado { background-color: #777; }
+.tarjeta-llavero:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
 
-.tarjeta-llavero.conseguido .estado {
-  background-color: #4caf50;
-}
-
-.tarjeta-llavero.faltante {
-  background-color: #e0e0e0;
-}
-
-.tarjeta-llavero.faltante img {
-  filter: grayscale(100%);
-}
-
-.tarjeta-llavero.faltante .estado {
-  background-color: #777;
-}
-
-.tarjeta-llavero:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-
-.grid-llaveros a {
-  text-decoration: none;
-  color: inherit;
-}
+.grid-llaveros a { text-decoration: none; color: inherit; }
 
 /* =============================
    ESTADOS EN DETALLE DE PRODUCTO
@@ -363,9 +329,8 @@ main > button:hover {
   border-radius: 25px;
   font-weight: bold;
   color: #fff;
-  font-size: 1rem;
+  font-size: clamp(.9rem, 2.6vw, 1rem); /* 🔧 NUEVO */
 }
-
 .estado-conseguido { background-color: #4caf50; }
 .estado-faltante   { background-color: #777; }
 
@@ -375,12 +340,11 @@ main > button:hover {
 .progreso-container {
   background-color: #ddd;
   border-radius: 20px;
-  width: 80%;
+  width: min(90%, 600px); /* 🔧 NUEVO */
   height: 20px;
   margin: 10px auto;
   overflow: hidden;
 }
-
 .progreso-bar {
   background-color: #4caf50;
   height: 100%;
@@ -388,60 +352,50 @@ main > button:hover {
   border-radius: 20px;
   transition: width 0.5s ease-in-out;
 }
-
 .progreso-texto {
   text-align: center;
   font-weight: bold;
   margin-top: 10px;
-  font-size: 1rem;
+  font-size: clamp(.9rem, 2.6vw, 1rem); /* 🔧 NUEVO */
 }
 
 /* =============================
    CONÓCENOS - PERFIL DEL EQUIPO
    ============================= */
 .equipo {
-  display: flex;
-  flex-direction: column; 
-  gap: 30px;             
-  padding: 30px;
-  max-width: 800px;       
-  margin: 0 auto;         
+  display: grid;                 /* 🔧 NUEVO: grid en lugar de solo flex */
+  grid-template-columns: 1fr;    /* 🔧 NUEVO: una columna en móvil */
+  gap: 30px;
+  padding: clamp(16px, 4vw, 30px);
+  max-width: 800px;
+  margin: 0 auto;
+}
+@media (min-width: 820px){
+  .equipo{ grid-template-columns: repeat(2, 1fr); } /* 🔧 NUEVO */
 }
 
 .equipo .card {
   background: #fff;
   border-radius: 20px;
-  padding: 25px;
+  padding: clamp(18px, 4vw, 25px); /* 🔧 NUEVO */
   text-align: center;
   box-shadow: 0 6px 15px rgba(0,0,0,0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.equipo .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
+.equipo .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
 .equipo .card img {
-  width: 180px;
-  height: 180px;
+  width: clamp(120px, 35vw, 180px); /* 🔧 NUEVO */
+  height: clamp(120px, 35vw, 180px);/* 🔧 NUEVO */
   border-radius: 50%;
   margin-bottom: 15px;
   object-fit: cover;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-.equipo .card h3 {
-  font-size: 1.4rem;
-  color: #333;
-  margin: 10px 0 5px 0;
-}
-
-.equipo .card p {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 15px;
-}
+.equipo .card h3 { font-size: clamp(1.05rem, 3.4vw, 1.4rem); } /* 🔧 NUEVO */
+.equipo .card p  { font-size: clamp(.9rem, 2.8vw, 1rem); }     /* 🔧 NUEVO */
 
 .equipo .card .btn-perfil {
   display: inline-block;
@@ -467,19 +421,16 @@ main > button:hover {
 .carlos-redes {
   display: flex;
   justify-content: center;
-  gap: 25px;
+  gap: clamp(14px, 3.4vw, 25px); /* 🔧 NUEVO */
   margin: 20px 0;
   flex-wrap: wrap;
 }
 
-.carlos-redes a {
-  display: inline-block;
-  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
-}
+.carlos-redes a { display: inline-block; transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease; }
 
 .carlos-redes a img {
-  width: 60px;
-  height: 60px;
+  width: clamp(44px, 10vw, 60px); /* 🔧 NUEVO */
+  height: clamp(44px, 10vw, 60px);/* 🔧 NUEVO */
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
@@ -507,42 +458,17 @@ main > button:hover {
   transition: all 0.3s ease;
   margin-top: 15px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  font-size: clamp(.95rem, 2.8vw, 1rem); /* 🔧 NUEVO */
 }
 
-.agregar-carrito:hover {
-  background: #45a049;
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-
-.agregar-carrito:disabled {
-  background: #888;
-  cursor: not-allowed;
-}
+.agregar-carrito:hover { background: #45a049; transform: translateY(-3px) scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+.agregar-carrito:disabled { background: #888; cursor: not-allowed; }
 
 /* =============================
-   RESPONSIVE EXISTENTE
+   RESPONSIVE (refinado)
    ============================= */
 @media screen and (max-width: 1024px) {
-  .tarjetas,
-  .grid-llaveros {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .tarjetas {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .grid-llaveros {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .equipo {
-    grid-template-columns: 1fr;
-  }
+  main{ padding: 20px; }
 }
 
 @media screen and (max-width: 500px) {
@@ -551,15 +477,9 @@ main > button:hover {
     align-items: flex-start;
     gap: 10px;
   }
-
   #carrito-lista li button {
     margin-left: 0;
     align-self: flex-end;
-  }
-
-  .tarjetas,
-  .grid-llaveros {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -572,8 +492,8 @@ main > button:hover {
   bottom: 12px;
   display: block;
   z-index: 1000;
-  padding: 15px 25px;
-  font-size: 1rem;
+  padding: 12px 18px; /* 🔧 NUEVO: más compacto en móvil */
+  font-size: clamp(.9rem, 2.8vw, 1rem); /* 🔧 NUEVO */
   font-weight: bold;
   color: #fff;
   background: linear-gradient(135deg, #66a6ff, #89f7fe);
@@ -584,13 +504,21 @@ main > button:hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
-#installBtn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  filter: brightness(1.1);
+/* 🔧 NUEVO: que no tape UI en celulares angostos */
+@media (max-width: 420px){
+  #installBtn{
+    left: 10px;
+    right: 10px;
+    width: auto;
+  }
 }
 
-#installBtn:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+#installBtn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 6px 18px rgba(0,0,0,0.35); filter: brightness(1.1); }
+#installBtn:active { transform: translateY(0) scale(0.98); box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+
+/* =============================
+   ACCESIBILIDAD / PREFERENCIAS
+   ============================= */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
 }

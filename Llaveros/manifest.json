@@ -1,21 +1,25 @@
 {
   "name": "Llaveros UCQ",
-  "short_name": "Llaveros",
-  "description": "Explora nuestra colección de llaveros",
-  "start_url": "./index.html",
+  "short_name": "UCQ",
+  "description": "Explora y colecciona llaveros digitales y físicos de Llaveros UCQ.",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "background_color": "#fdfdfd",
   "theme_color": "#66a6ff",
   "icons": [
     {
       "src": "img/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "img/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

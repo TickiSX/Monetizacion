@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Llaveros UCQ | Inicio</title>
 
-  <!-- Estilos propios -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css" />
 
   <!-- Manifest PWA -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#000000" />
 
   <!-- iOS -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="img/icon-192.png" />
 </head>
 <body>
-  <header>Llaveros UCQ</header>
+  <!-- Encabezado -->
+  <header>
+    Llaveros UCQ
+  </header>
 
-  <nav>
+  <!-- Navegación (se adapta con wrap/scroll según el CSS) -->
+  <nav aria-label="Navegación principal">
     <a href="index.html">Inicio</a>
     <a href="indice.html">Índice</a>
     <a href="tienda.html">Tienda</a>
@@ -28,28 +32,31 @@
     <a href="conocenos.html">Conócenos</a>
   </nav>
 
+  <!-- Contenido principal -->
   <main>
     <h2>Bienvenido</h2>
-    <p>Explora nuestra colección de llaveros para ti guerrero. Hechos con dedicación para acompañarte a todas partes.</p>
+    <p>
+      Explora nuestra colección de llaveros para ti, guerrero. Hechos con dedicación
+      para acompañarte a todas partes.
+    </p>
+
+    <!-- Carrusel responsivo (usa .carousel del CSS) -->
+    <section class="carousel" aria-label="Galería de llaveros">
+      <img src="img/GATA.jpg" class="active" alt="Llavero Gata" />
+      <img src="img/CONTROL.jpg" alt="Llavero Control" />
+      <img src="img/MUELA.jpg" alt="Llavero Muela" />
+    </section>
   </main>
 
-  <!-- Carrusel -->
-  <div class="carousel">
-    <img src="img/GATA.jpg" class="active" alt="Llavero 1">
-    <img src="img/CONTROL.jpg" alt="Llavero 2">
-    <img src="img/MUELA.jpg" alt="Llavero 3">
-  </div>
+  <!-- Botón de instalación PWA (el CSS ya lo hace compacto en móvil) -->
+  <button id="installBtn" aria-label="Instalar aplicación">Descargar App</button>
 
-  <!-- Botón de instalación siempre visible -->
-  <button id="installBtn" style="position:fixed;right:12px;bottom:12px;display:block;z-index:1000;">
-    Descargar App
-  </button>
-
+  <!-- Pie de página -->
   <footer>
     © 2025 Llaveros UCQ | Todos los derechos reservados
   </footer>
 
-  <!-- JS Carrusel -->
+  <!-- JS Carrusel (simple, respeta reduce motion si lo deseas extender) -->
   <script>
     const slides = document.querySelectorAll(".carousel img");
     let current = 0;
@@ -58,32 +65,37 @@
       slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
     }
 
-    setInterval(() => {
-      current = (current + 1) % slides.length;
-      showSlide(current);
-    }, 3000); // cambia cada 3 segundos
+    if (slides.length > 1) {
+      setInterval(() => {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+      }, 3000);
+    }
   </script>
 
-  <!-- Registro Service Worker -->
+  <!-- Registro Service Worker + flujo instalación PWA -->
   <script>
+    // Service Worker
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./service-worker.js")
         .then(() => console.log("Service Worker registrado"))
         .catch(err => console.error("Error al registrar SW:", err));
     }
 
-    // Manejo del botón de descarga PWA
+    // Instalación PWA
     let deferredPrompt;
     const installBtn = document.getElementById("installBtn");
 
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
+      // Si quieres mostrar/ocultar el botón según disponibilidad,
+      // aquí podrías agregar una clase .visible
+      // installBtn.classList.add("visible");
     });
 
     installBtn.addEventListener("click", async () => {
       if (deferredPrompt) {
-        // Navegador soporta PWA
         deferredPrompt.prompt();
         const choice = await deferredPrompt.userChoice;
         if (choice.outcome === "accepted") {
@@ -91,9 +103,8 @@
         }
         deferredPrompt = null;
       } else {
-        // Mostrar mensaje explicativo si no se puede instalar
         alert("Tu navegador no soporta instalación automática de PWA.\n" +
-              "Si estás en móvil, puedes usar la opción 'Agregar a pantalla de inicio'");
+              "En móvil, usa 'Agregar a pantalla de inicio'.");
       }
     });
   </script>
