@@ -23,7 +23,7 @@
     Llaveros UCQ
   </header>
 
-  <!-- Navegación (se adapta con wrap/scroll según el CSS) -->
+  <!-- Navegación -->
   <nav aria-label="Navegación principal">
     <a href="index.html">Inicio</a>
     <a href="indice.html">Índice</a>
@@ -40,15 +40,15 @@
       para acompañarte a todas partes.
     </p>
 
-    <!-- Carrusel responsivo (usa .carousel del CSS) -->
+    <!-- Carrusel -->
     <section class="carousel" aria-label="Galería de llaveros">
-      <img src="img/GATA.jpg" class="active" alt="Llavero Gata" />
-      <img src="img/CONTROL.jpg" alt="Llavero Control" />
-      <img src="img/MUELA.jpg" alt="Llavero Muela" />
+      <img src="img/gata.jpg" class="active" alt="Llavero Gata" />
+      <img src="img/control.jpg" alt="Llavero Control" />
+      <img src="img/muela.jpg" alt="Llavero Muela" />
     </section>
   </main>
 
-  <!-- Botón de instalación PWA (el CSS ya lo hace compacto en móvil) -->
+  <!-- Botón de instalación -->
   <button id="installBtn" aria-label="Instalar aplicación">Descargar App</button>
 
   <!-- Pie de página -->
@@ -56,30 +56,13 @@
     © 2025 Llaveros UCQ | Todos los derechos reservados
   </footer>
 
-  <!-- JS Carrusel (simple, respeta reduce motion si lo deseas extender) -->
-  <script>
-    const slides = document.querySelectorAll(".carousel img");
-    let current = 0;
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
-    }
-
-    if (slides.length > 1) {
-      setInterval(() => {
-        current = (current + 1) % slides.length;
-        showSlide(current);
-      }, 3000);
-    }
-  </script>
-
-  <!-- Registro Service Worker + flujo instalación PWA -->
+  <!-- Registro Service Worker + flujo instalación -->
   <script>
     // Service Worker
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./service-worker.js")
-        .then(() => console.log("Service Worker registrado"))
-        .catch(err => console.error("Error al registrar SW:", err));
+        .then(() => console.log("✅ Service Worker registrado"))
+        .catch(err => console.error("❌ Error al registrar SW:", err));
     }
 
     // Instalación PWA
@@ -89,9 +72,7 @@
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      // Si quieres mostrar/ocultar el botón según disponibilidad,
-      // aquí podrías agregar una clase .visible
-      // installBtn.classList.add("visible");
+      installBtn.style.display = "block"; // mostramos el botón
     });
 
     installBtn.addEventListener("click", async () => {
@@ -106,6 +87,10 @@
         alert("Tu navegador no soporta instalación automática de PWA.\n" +
               "En móvil, usa 'Agregar a pantalla de inicio'.");
       }
+    });
+
+    window.addEventListener("appinstalled", () => {
+      console.log("🎉 PWA instalada");
     });
   </script>
 </body>

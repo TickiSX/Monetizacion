@@ -1,58 +1,46 @@
 const CACHE_NAME = "llaveros-pwa-v2";
 
-// Archivos esenciales para precache
+// Archivos para precache
 const PRECACHE_ASSETS = [
   "./index.html",
   "./style.css",
   "./manifest.json",
-  "./img/GATA.jpg",
-  "./img/CONTROL.jpg",
-  "./img/MUELA.jpg",
+  "./img/gata.jpg",
+  "./img/control.jpg",
+  "./img/muela.jpg",
   "./img/icon-192.png",
   "./img/icon-512.png"
 ];
 
-// Instalación → guarda en caché los archivos básicos
+// Instalación → precache
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(PRECACHE_ASSETS);
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
   );
   self.skipWaiting();
 });
 
-// Activación → limpia caches viejos
+// Activación → limpiar caches viejos
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      )
+      Promise.all(keys.map((key) => (key !== CACHE_NAME ? caches.delete(key) : null)))
     )
   );
   self.clients.claim();
 });
 
-// Estrategia de fetch
+// Fetch → cache-first para assets, network-first para HTML
 self.addEventListener("fetch", (event) => {
   const req = event.request;
 
-  // Para páginas HTML → network first
   if (req.headers.get("accept")?.includes("text/html")) {
     event.respondWith(networkFirst(req));
-    return;
+  } else {
+    event.respondWith(cacheFirst(req));
   }
-
-  // Para CSS, JS, imágenes, etc → cache first
-  event.respondWith(cacheFirst(req));
 });
 
-// Estrategia: network first (HTML)
 async function networkFirst(req) {
   try {
     const fresh = await fetch(req);
@@ -64,7 +52,6 @@ async function networkFirst(req) {
   }
 }
 
-// Estrategia: cache first (assets)
 async function cacheFirst(req) {
   const cached = await caches.match(req);
   if (cached) return cached;
