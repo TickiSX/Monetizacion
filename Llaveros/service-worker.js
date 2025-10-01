@@ -1,38 +1,62 @@
-const CACHE_NAME = "llaveros-cache-v1";
-const urlsToCache = [
+const CACHE_NAME = "llaveros-pwa-v2";
+
+// Archivos para precache
+const PRECACHE_ASSETS = [
   "./index.html",
   "./style.css",
-  "./script.js",
-  "./img/GATA.jpg",
-  "./img/CONTROL.jpg",
-  "./img/MUELA.jpg",
+  "./manifest.json",
+  "./img/gata.jpg",
+  "./img/control.jpg",
+  "./img/muela.jpg",
   "./img/icon-192.png",
   "./img/icon-512.png"
 ];
 
-// Instalación y cacheo
-self.addEventListener("install", event => {
+// Instalación → precache
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
   );
+  self.skipWaiting();
 });
 
-// Activación
-self.addEventListener("activate", event => {
+// Activación → limpiar caches viejos
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => Promise.all(
-      cacheNames.map(name => {
-        if (name !== CACHE_NAME) return caches.delete(name);
-      })
-    ))
+    caches.keys().then((keys) =>
+      Promise.all(keys.map((key) => (key !== CACHE_NAME ? caches.delete(key) : null)))
+    )
   );
+  self.clients.claim();
 });
 
-// Fetch (offline)
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
+// Fetch → cache-first para assets, network-first para HTML
+self.addEventListener("fetch", (event) => {
+  const req = event.request;
+
+  if (req.headers.get("accept")?.includes("text/html")) {
+    event.respondWith(networkFirst(req));
+  } else {
+    event.respondWith(cacheFirst(req));
+  }
 });
+
+async function networkFirst(req) {
+  try {
+    const fresh = await fetch(req);
+    const cache = await caches.open(CACHE_NAME);
+    cache.put(req, fresh.clone());
+    return fresh;
+  } catch (e) {
+    return caches.match(req) || caches.match("./index.html");
+  }
+}
+
+async function cacheFirst(req) {
+  const cached = await caches.match(req);
+  if (cached) return cached;
+  const fresh = await fetch(req);
+  const cache = await caches.open(CACHE_NAME);
+  cache.put(req, fresh.clone());
+  return fresh;
+}
